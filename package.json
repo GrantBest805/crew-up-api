@@ -1,0 +1,22 @@
+{
+  "name": "crew-up-v1",
+  "version": "1.0.0",
+  "description": "App to organize teams",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "author": "Grant Best",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.3.4",
+    "mongoose": "^5.7.12",
+    "validator": "^12.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
