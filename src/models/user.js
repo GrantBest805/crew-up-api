@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Schema = mongoose.Schema
@@ -16,11 +17,21 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true, 
         required: true, 
-        lowercase: true
+        lowercase: true, 
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Invalid Email')
+            }
+        }
     },
     password: {
         type: String, 
         required: true, 
+        validate(value) {
+            if (value < 6) {
+                throw new Error("Password must min of 6 characters")
+            }
+        }
     },
     date: {
         type: Date, 
