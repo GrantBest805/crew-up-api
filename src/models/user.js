@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String, 
+        unique: true, 
         required: true, 
         validate(value) {
             if (value < 6) {
@@ -35,11 +36,16 @@ const userSchema = new mongoose.Schema({
     },
     date: {
         type: Date, 
+        default: Date.now
     },
-    jobs: [{
+    _jobs: [{
         type: Schema.Types.ObjectId, 
         ref: "Job"
     }], 
+    _company: [{
+        type: Schema.Types.ObjectId,
+        ref: "Company"
+    }],
     isAvaliable: {
         type: Boolean, 
         default: false
@@ -55,6 +61,17 @@ const userSchema = new mongoose.Schema({
         }
     }]
 })
+
+
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this

@@ -5,14 +5,18 @@ const jobSchema = mongoose.Schema({
     name: String,
     number: Number, 
     description: String, 
-    lead: {
+    _lead: {
         type: Schema.Types.ObjectId, 
         ref: "User"
     },
-    crew: [{
+    _crew: [{
         type: Schema.Types.ObjectId, 
         ref: "User"
-    }]
+    }], 
+    date: {
+        type: Date, 
+        default: Date.now
+    }
 })
 
 const Job = mongoose.model("Job", jobSchema)

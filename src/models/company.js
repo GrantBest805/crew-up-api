@@ -2,30 +2,33 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const companySchema = new mongoose.Schema({
-    admin: {
+    _admin: {
         type: Schema.Types.ObjectId, 
         ref: "User"
     },
     name: {
-        type: String, 
+        type: String,
+        unique: true,  
         required: true, 
         trim: true
     }, 
-    password: {
+    ID: {
         type: String, 
         required: true, 
+        unique: true, 
         trim: true
     },
-    users: [{
+    _users: [{
         type: Schema.Types.ObjectId, 
         ref: "User"
     }], 
-    jobs: [{
+    _jobs: [{
         type: Schema.Types.ObjectId, 
         ref: "Job"
     }], 
     date: {
-        type: Date
+        type: Date, 
+        default: Date.now
     }
 })
 

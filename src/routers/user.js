@@ -5,7 +5,7 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 
 // Create User
-router.post('/users', async (req, res) => {
+router.post('/api/users', async (req, res) => {
     const user = new User(req.body)
 
     try {
@@ -20,7 +20,7 @@ router.post('/users', async (req, res) => {
     }
 })
 // User Login
-router.post('/users/login', async (req, res) => {
+router.post('/api/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
@@ -35,7 +35,7 @@ router.post('/users/login', async (req, res) => {
 
 })
 // User Logout
-router.post('/users/logout', auth, async (req, res) => {
+router.post('/api/users/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(token => {
             return token.token !== req.token
@@ -47,14 +47,14 @@ router.post('/users/logout', auth, async (req, res) => {
     }
 })
 // Get Current User
-router.get('/users/current', auth, async (req, res) => {
+router.get('/api/users/current', auth, async (req, res) => {
     res.send(req.user)
 })
 // Update User
-router.patch('/users/:id', auth, async (req, res) => {
+router.patch('/api/users/:id', auth, async (req, res) => {
     const isAdmin = req.user.isAdmin
     const updates = Object.keys(req.body)
-    const allowedUpdates = isAdmin ? ['name', 'email', 'password', 'isAvaliable', 'isAvaliable', 'isAdmin'] : ['name', 'email', 'password', 'isAvaliable']
+    const allowedUpdates = isAdmin ? ['name', 'email', 'password', 'isAvaliable', 'isAdmin'] : ['name', 'email', 'password', 'isAvaliable']
     const isValidOptions = await updates.every((update) => allowedUpdates.includes(update))
 
     if(!isValidOptions) {
@@ -75,7 +75,7 @@ router.patch('/users/:id', auth, async (req, res) => {
     }
 })
 // Delete User
-router.delete('/users/:id', auth, async (req, res) => {
+router.delete('/api/users/:id', auth, async (req, res) => {
     const _id = req.params.id
     try {
         const user = await User.findByIdAndDelete(_id)
