@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
         required: true, 
         trim: true
     }, 
+    title: {
+        type: String, 
+        require: true, 
+        default: 'tech'
+    },
     email: {
         type: String, 
         required: true, 
@@ -24,6 +29,9 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    location: {
+        type: String
+    }, 
     password: {
         type: String, 
         unique: true, 
