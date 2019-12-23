@@ -15,7 +15,7 @@ router.post("/api/company", auth, async (req, res) => {
   const adminId = req.user._id
   company._users = [...company._users, adminId]
   try {
-    const user = await User.findById(adminId)
+    const user = await  User.findById(adminId)
     user.isAdmin = true
     user._company = [...user._company, company._id]
 
@@ -29,7 +29,7 @@ router.post("/api/company", auth, async (req, res) => {
   }
 })
 // Join Company
-router.get("/api/joinCompany", auth, async (req, res) => {
+router.get("/api/joinCompany",auth, async (req, res) => {
   const company = await Company.findOne({ ID: req.body.ID })
   if (!company) {
     throw new Error({ error: "Must match companies ID" })
