@@ -48,7 +48,12 @@ router.post('/api/users/logout', auth, async (req, res) => {
 })
 // Get Current User
 router.get('/api/users/current', auth, async (req, res) => {
-    res.send(req.user)
+    const user = req.user
+    const token = req.token 
+    res.send({
+        user, 
+        token
+    })
 })
 // Update User
 router.patch('/api/users/:id', auth, async (req, res) => {
